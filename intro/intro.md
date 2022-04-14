@@ -2,22 +2,27 @@
 
 ## About this Workshop
 
-In this workshop, you will learn how to build and deploy a simple  Cloud native application using the most commonly used frameworks and the Oracle Cloud Infrastructure services.
+In this workshop, you will learn
+- Create Oracle Database functions and expose them as Oracle REST APIs (ORDS).
+- Enable OAuth2 authentication.
+- Deploy a python Application which calls the ORDS in a Kubernetes cluster.
+- Integrate the application with SSO.
 
-Estimated Workshop Time: 70 minutes
+Estimated Workshop Time: 90 minutes
 
-![](./images/Application.png " ")
+![](./images/Application1.png " ")
 
 ### About Product/Technology
 
-You will will learn how to use the Autonomous Database, the Container Registry, the Kubernetes Cluster (OKE) , Python/Flask  and the API Gateway managed services of the Oracle Cloud Infrastructure through the deployment of a simple MyToDo List React JS application.
+You will learn how to use the Autonomous Database, the Container Registry, the Kubernetes Cluster (OKE) , Python/Flask  and the API Gateway managed services of the Oracle Cloud Infrastructure through the deployment of a simple Retirement Calculator program.
 
-![](./images/FullstackArch1.png " ")
+![](./images/FullstackArch2.png " ")
 
 ### Objectives
 
-In this 2 parts lab, you will:
-* Provision a Kubernetes cluster, an Oracle Autonomous Database instance, a Container Registry, and an API Gateway
+In this 3 parts lab, you will:
+* Provision a Kubernetes cluster, an Oracle Autonomous Database instance, a Container Registry, and an API Gateway.
+* Expose Oracle pl/sql function as Oracle Rest APIs.
 * Understand, build and deploy a Python/Flask application implementing the REST APIs, using Docker, OCI Container Registry and Oracle Kubernetes service (OKE).
 
 ### Prerequisites

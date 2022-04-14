@@ -17,7 +17,15 @@
         "filename": "../../setup-dev-environment/setup-dev-environment.md"
       },
       {
-        "title": "Lab 2: Backend (Python/Flask)",
+        "title": "Lab 2: ORDS in ADB",
+        "filename": "../../backend/backend.md"
+      },
+      {
+        "title": "Lab 3: Backend (Python/Flask)",
+        "filename": "../../backend/backend.md"
+      },
+      {
+        "title": "Lab 4: SSO (optional)",
         "filename": "../../backend/backend.md"
       },
       {
