@@ -1,5 +1,5 @@
 {
-  "workshoptitle": "My ToDo List App with Python, Flask, SQLAlchemy and ADB",
+  "workshoptitle": "Full Stack Development using Python,ORDS and Deploy  via OKE",
   "help": "livelabs-help-db_us@oracle.com",
     "tutorials": [
       {
@@ -17,12 +17,17 @@
         "filename": "../../setup-dev-environment/setup-dev-environment.md"
       },
       {
-        "title": "Lab 2: ORDS in ADB",
-        "filename": "../../backend/backend.md"
+        "title": "Lab 2: Connect to an Autonomous Database",
+        "description": "Connect to an Autonomous Database with SQL Developer Web",
+        "filename": "https://raw.githubusercontent.com/oracle/learning-library/master/common/labs/sqldevweb-login/sqldevweb-login.md"
+      },
+      {
+        "title": "Lab 3: ORDS in ADB",
+        "filename": "../../ords/backend.md"
       },
       {
         "title": "Lab 3: Backend (Python/Flask)",
-        "filename": "../../backend/backend.md"
+        "filename": "../../ORDS/backend.md"
       },
       {
         "title": "Lab 4: SSO (optional)",
