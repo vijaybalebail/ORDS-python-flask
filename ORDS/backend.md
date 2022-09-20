@@ -85,6 +85,9 @@ RETURN rc_ftt PIPELINED
 		SELECT * FROM TABLE ( rc_ft2 ( 45, 1000000, 7)) names ;
 </copy>
 ```
+![](images/functionoutput.png " lslsl")
+
+lslslslsl
 
 ## Task 2: REST enable schema and objects.
 
