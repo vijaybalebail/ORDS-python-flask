@@ -209,7 +209,7 @@ END;
   Eg. curl --location  "https://fp7cb75hkszpygo-db202201121316.adb.us-sanjose-1.oraclecloudapps.com/ords/admin/open-api-catalog/rest-v3/"
 
 
- Now That the database function can be accessed as a ORDS, 
+ Now That the Application
 ## Acknowledgements
 
 * **Author** -  - Vijay Balebail, Dir. Product Management.
