@@ -81,8 +81,9 @@ Estimated time: ~45 minutes.
     ```
     $ <copy>
     docker images</copy>
+
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-    todolist-flask      latest              02f268c26542        34 seconds ago      477MB
+    savings             latest              02f268c26542        34 seconds ago      352MB
     oraclelinux         7-slim              0a28ba78f4c9        2 months ago        132MB
 
     ```
@@ -93,22 +94,23 @@ Estimated time: ~45 minutes.
 
      ```
      <copy>
-     docker run -d  -p 5003:5000  todolist-flask:latest
+     docker run -d  -p 8080:8080  savings:latest
      docker ps
      </copy>
       $    docker ps
-      CONTAINER ID        IMAGE                   COMMAND                       PORTS                    NAMES
-      b167d3a24057        todolist-flask:latest   "/bin/sh -c 'python3…"    0.0.0.0:5003->5000/tcp   relaxed_shirley
+      CONTAINER ID        IMAGE                COMMAND                   PORTS                    NAMES
+      b167d3a24057        savings:latest       "/bin/sh -c 'python3…"    0.0.0.0:5003->5000/tcp   relaxed_shirley
 
      ```
 
   2. Run curl get script to verify you can access data locally.
 
-     ```
-     <copy>
-       curl -GET http://0.0.0.0:5003/todolist/foo2	 
-     </copy>
-     ```
+		 ```
+			<copy>
+			 curl -GET http://0.0.0.0:8080/name/anyname	 
+			</copy>
+		 ```
+       My first web app! By <strong>anyname</strong>.
 
 ## Task 4: Tag & push image to the registry.
 
@@ -116,8 +118,8 @@ Estimated time: ~45 minutes.
    Give a tag to the image that you're going to push to Oracle Cloud Infrastructure Registry by entering:
      ```
      <copy>
-     docker tag todolist-flask:latest $DOCKER_REGISTRY/todolist-flask:latest
-     docker push $DOCKER_REGISTRY/todolist-flask:latest
+     docker tag savings:latest $DOCKER_REGISTRY/savings:latest
+     docker push $DOCKER_REGISTRY/savings:latest
      </copy>
      ```
 
