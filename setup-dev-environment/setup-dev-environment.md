@@ -370,7 +370,7 @@ echo MTDRWORKSHOP_REGION = $MTDRWORKSHOP_REGION
 echo MTDRWORKSHOP_OCIR_USER = $MTDRWORKSHOP_OCIR_USER
 echo MTDRWORKSHOP_OCIR_AUTHKEY = $MTDRWORKSHOP_OCIR_AUTHKEY
 
- kubectl create secret docker-registry todolistpullsecret3 --docker-server=$MTDRWORKSHOP_REGION --docker-username='$MTDRWORKSHOP_OCIR_NAMESPACE/$MTDRWORKSHOP_OCIR_USER'  --docker-password=$MTDRWORKSHOP_OCIR_AUTHKEY
+ kubectl create secret docker-registry ordsimagesecret --docker-server=$MTDRWORKSHOP_REGION --docker-username='$MTDRWORKSHOP_OCIR_NAMESPACE/$MTDRWORKSHOP_OCIR_USER'  --docker-password=$MTDRWORKSHOP_OCIR_AUTHKEY
  </copy>
 ```
 

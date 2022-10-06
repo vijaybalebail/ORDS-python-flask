@@ -50,8 +50,8 @@ Estimated time: ~45 minutes.
      <copy>
       mkdir ~/mtdrworkshop/python
       cd ~/mtdrworkshop/python
-      git clone https://github.com/vijaybalebail/Todo-List-Dockerized-Flask-WebApp.git
-      cd Todo-List-Dockerized-Flask-WebApp
+      git clone https://github.com/vijaybalebail/ORDS-Fullstack-python.git
+      cd ORDS-Fullstack-python/
       </copy>
   	 ```
 
@@ -59,7 +59,9 @@ Estimated time: ~45 minutes.
    Look at the construct of the Dockerfile and execute the command to build the docker image.
 
     ```
-    <copy> docker build  -t saveings-flask:latest . </copy>
+    <copy>
+		       docker login $MTDRWORKSHOP_REGION.ocir.io -u $MTDRWORKSHOP_OCIR_NAMESPACE/$MTDRWORKSHOP_OCIR_USER -p $MTDRWORKSHOP_OCIR_AUTHKEY
+					 docker build  -t saveings-flask:latest . </copy>
 
 				Sending build context to Docker daemon  148.5kB
 		Step 1/14 : FROM vijaybalebail/python

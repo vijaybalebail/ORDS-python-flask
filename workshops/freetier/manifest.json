@@ -26,8 +26,8 @@
         "filename": "../../ords/backend.md"
       },
       {
-        "title": "Lab 4: Backend (Python/Flask)",
-        "filename": "../../ORDS/pythonflask.md"
+        "title": "Lab 4: OAuth for ORDS",
+        "filename": "../../ORDS/oauth2.md"
       },
       {
         "title": "Lab 4: SSO (optional)",

@@ -99,14 +99,14 @@ If I want to publish a service in the ADMIN schema, then I must FIRST REST Enabl
 
 1. Enable Schema
 
-we enable ADMIN schema and assign the base path of hr.This is a schema alias used in the web service URLs which lets ORDS know it's dealing with objects in the admin user schema.
+we enable ADMIN schema and assign the base path of admin. This is a schema alias used in the web service URLs which lets ORDS know it's dealing with objects in the admin user schema.
 ```
 <copy>
 BEGIN
 	 ORDS.ENABLE_SCHEMA(p_enabled => TRUE,
 											p_schema => 'ADMIN',
 											p_url_mapping_type => 'BASE_PATH',
-											p_url_mapping_pattern => 'hr',
+											p_url_mapping_pattern => 'admin',
 											p_auto_rest_auth => FALSE);
 	 COMMIT;
 END;
@@ -206,10 +206,17 @@ END;
 
   Optionally, you could run your cURL script from you desktop or Oracle Cloud shell and verifiy your ORDS is working.
 	Our example passes the the data in the URL. so it is possble to directly access the url. However, in most senarious, we usually pass the variable as part of the body or header of the GET request.
-  Eg. curl --location  "https://fp7cb75hkszpygo-db202201121316.adb.us-sanjose-1.oraclecloudapps.com/ords/admin/open-api-catalog/rest-v3/"
+  Eg.
+	```
 
+	 curl --location https://g1ec399e4b6fed3-mtdrdb.adb.ap-sydney-1.oraclecloudapps.com/ords/admin/rest-fullstack/rc1/47/2000000/7
 
- Now That the database function can be accessed as a ORDS, 
+{"items":[{"age":48,"balance":2140000},{"age":49,"balance":2289800},{"age":50,"balance":2450086},{"age":51,"balance":2621592},{"age":52,"balance":2805103},{"age":53,"balance":3001460},{"age":54,"balance":3211562},{"age":55,"balance":3436371},{"age":56,"balance":3676917},{"age":57,"balance":3934301},{"age":58,"balance":4209702},{"age":59,"balance":4504381},{"age":60,"balance":4819688},{"age":61,"balance":5157066},{"age":62,"balance":5518061},{"age":63,"balance":5904325},{"age":64,"balance":6317628},{"age":65,"balance":6759862},{"age":66,"balance":7233052},{"age":67,"balance":7739366}],"hasMore":false,"limit":1000,"offset":0,"count":20,"links":[{"rel":"self","href":"https://g1ec399e4b6fed3-mtdrdb.adb.ap-sydney-1.oraclecloudapps.com/ords/admin/rest-fullstack/rc1/47/2000000/7"},{"rel":"describedby","href":"https://g1ec399e4b6fed3-mtdrdb.adb.ap-sydney-1.oraclecloudapps.com/ords/admin/metadata-catalog/rest-fullstack/rc1/47/2
+vijay_bale@cloudshell:~ (ap-sydney-1)$ curl --location  "https://fp7cb75hkszpygo-db202201121316.adb.us-sanjose-1.oraclecloudapps.com/ords/admin/open-api-catalog/rest-v3/47/1000000/7"
+
+```
+
+ Now That the database function can be accessed as a ORDS,
 ## Acknowledgements
 
 * **Author** -  - Vijay Balebail, Dir. Product Management.
