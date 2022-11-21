@@ -43,7 +43,7 @@ Watch the video below for a comprehensive overview of REST and how ORDS provides
 
 ## Task 1: Connect to sqldevweb and run the script below.
 
-Run the following script to create a plsql function. This function will take input of current AGE, Dollar value of your current assests and rate of interest you think you can grow until the retairement age of 67.
+Run the following script to create a plsql function. This function will take input of current AGE, Dollar value of your current assests and rate of interest you think you can grow until the retirement age of 67.
 ```
 <copy>
 CREATE TYPE rc_o AS OBJECT
@@ -200,7 +200,7 @@ END;
 
     ![](images/curlTest.png " ")
 
-8. You can run the url constucted from the handler and run in a bouser and get json data back.
+8. You can run the url constucted from the handler and run in a browser and get json data back.
 
    ![](images/urlords.png " ")
 
@@ -215,8 +215,10 @@ END;
 vijay_bale@cloudshell:~ (ap-sydney-1)$ curl --location  "https://fp7cb75hkszpygo-db202201121316.adb.us-sanjose-1.oraclecloudapps.com/ords/admin/open-api-catalog/rest-v3/47/1000000/7"
 
 ```
+Note: Now you have successfully created an ORDS. You can call this URL with parameter values from any application. The URL is a API that will connect to the ADB and run the database function and return the data in a JSON format.
 
- Now That the database function can be accessed as a ORDS,
+Please save this the URL. We will call this from a Python app in the folowing lab.
+
 ## Acknowledgements
 
 * **Author** -  - Vijay Balebail, Dir. Product Management.

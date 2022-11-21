@@ -85,7 +85,7 @@ Estimated time: ~45 minutes.
     docker images</copy>
 
     REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-    savings             latest              02f268c26542        34 seconds ago      352MB
+    saveings-flask      latest              02f268c26542        34 seconds ago      352MB
     oraclelinux         7-slim              0a28ba78f4c9        2 months ago        132MB
 
     ```
@@ -96,12 +96,12 @@ Estimated time: ~45 minutes.
 
      ```
      <copy>
-     docker run -d  -p 8080:8080  savings:latest
+     docker run -d  -p 8080:8080  saveings-flask:latest
      docker ps
      </copy>
       $    docker ps
-      CONTAINER ID        IMAGE                COMMAND                   PORTS                    NAMES
-      b167d3a24057        savings:latest       "/bin/sh -c 'python3…"    0.0.0.0:5003->5000/tcp   relaxed_shirley
+      CONTAINER ID        IMAGE                 COMMAND                   PORTS                    NAMES
+      b167d3a24057        saveings-flask:latest "/bin/sh -c 'python3…"    0.0.0.0:5003->5000/tcp   relaxed_shirley
 
      ```
 
@@ -120,8 +120,8 @@ Estimated time: ~45 minutes.
    Give a tag to the image that you're going to push to Oracle Cloud Infrastructure Registry by entering:
      ```
      <copy>
-     docker tag savings:latest $DOCKER_REGISTRY/savings:latest
-     docker push $DOCKER_REGISTRY/savings:latest
+     docker tag saveings-flask:latest $DOCKER_REGISTRY/saveings-flask:latest
+     docker push $DOCKER_REGISTRY/saveings-flask:latest
      </copy>
      ```
 
@@ -146,7 +146,7 @@ Estimated time: ~45 minutes.
    Ensure you have the image name in oracle docker registory, the name of the imagePullSecret that was created in step 5 of lab1.
 
 	```
-	<copy>cd ~/mtdrworkshop/python/Todo-List-Dockerized-Flask-WebApp;
+	<copy> cd  ~/mtdrworkshop/python/ORDS-Fullstack-python/;
 	      cp todo_template.yaml todo.yaml
         sed -i "s|%DOCKER_REGISTRY%|${DOCKER_REGISTRY}|g" todo.yaml
         kubectl create -f todo.yaml
