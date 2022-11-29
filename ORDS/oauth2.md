@@ -163,143 +163,63 @@ To protect the web service, we need to create a role with an associated privileg
     SELECT client_name, role_name
     FROM   user_ords_client_roles;
 
+		SELECT r.privilege_id, r.privilege_name, r.role_id, r.role_name, m.pattern, ct.client_name
+		FROM   user_ords_privilege_roles r, user_ords_privilege_mappings m, user_ords_client_roles ct
+		where  r.privilege_id=m.privilege_id
+		and ct.role_name = r.role_name;
   </copy>
   ```
 
-   ![](images/registry_root_compartment.png " ")
 
-3. Mark Access as Public  (if Private)  
-   (**Actions** > **Change to Public**):
+## Task 5: Get bearer token using client and secret.
+1. Navigate to the rest console and click on the security tab. From the drowdown, choose OAuth Client.
 
-   ![](images/Public-access.png " ")
+	![](images/oauthclient.png " ")
+
+2. Choose "Get Bearer Token" from the upper right corner of the ords_client.
+
+   ![](images/oauthtoken1.png " ")
 
 
+3. Choose Bash and then copy the cURL scrip and run it on cloudshell.
 
-## Task 5: Deploy on Kubernetes and Check the Status
+   	![](images/oauthtoken2.png " ")
 
-1. Verify the todo.yaml file.
-   Ensure you have the image name in oracle docker registory, the name of the imagePullSecret that was created in step 5 of lab1.
+4. Choose "Get Bearer Token" from the upper right corner of the ords_client.
 
+   ![](images/oauthtoken1.png " ")
+
+5.  Get the Bearer Token after running the curl script in cloud shell.
+  Example.
 	```
-	<copy>cd ~/mtdrworkshop/python/Todo-List-Dockerized-Flask-WebApp;
-	      cp todo_template.yaml todo.yaml
-        sed -i "s|%DOCKER_REGISTRY%|${DOCKER_REGISTRY}|g" todo.yaml
-        kubectl create -f todo.yaml
-  </copy>
-	```
-
-2. Check the status using the following commands. Verify the status is running for pods and you have a external-ip for LoadBalancer. You may have to rerun the command as it could take a couple of minutes to allocate a ip-address.
-    ```
-     $ <copy>
-      kubectl get all </copy>
-     $ kubectl get all
-    NAME                                      READY   STATUS             RESTARTS   AGE
-    pod/todo-deployment-657895dd59-qd89j      1/1     Running            0          3m1s
-
-    NAME                   TYPE           CLUSTER-IP    EXTERNAL-IP      PORT(S)          AGE
-    service/kubernetes     ClusterIP      10.96.0.1     <none>           443/TCP          32h
-    service/todo-service   LoadBalancer   10.96.77.65   132.226.36.134   8080:31093/TCP   3m1s
-
-    NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE
-    deployment.apps/todo-deployment      1/1     1            1           3m2s
-
-    NAME                                            DESIRED   CURRENT   READY   AGE
-    replicaset.apps/todo-deployment-657895dd59      1         1         1       3m2s
-
-    ```
+		vijay_bale@cloudshell:~ (us-ashburn-1)$ curl --user 8nEWrUbjYz6Ds_f2Zn1F0w..:1zSOCPLPECkPGX67bKWPMA.. --data 'grant_type=client_credentials' https://gxkzxwrxbhfdowb-oauthords.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/oauth/token
+		{"access_token":"AgkfCYvqSBdGKLnLFksLtA","token_type":"bearer","expires_in":3600}vijay_bale@cloudshell:~ (us-ashburn-1)$
+vijay_bale@cloudshell:~ (us-ashburn-1)$
+```
+ 6. Now pass the token as header to the ORDS URL using cURL.
+     Example.
 
 
-	The following command returns the Kubernetes service of ToDo application with a load balancer exposed through an external API
-	```
-	<copy>kubectl get services</copy>
-	```
+		 ```
+		  curl  -i -k -H"Authorization: Bearer AgkfCYvqSBdGKLnLFksLtA"  'https://gxkzxwrxbhfdowb-oauthords.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/rest-fullstack/rc1/49/2500000/7'
 
-	![](images/K8-service-Ext-IP.png " ")
+		 ```
 
-3. $ kubectl get pods
-	```
-	<copy>kubectl get pods</copy>
-	```
+		   The result should looke similar to what we got in the previous lab without OAuth.
 
-	![](images/k8-pods.png " ")
+		 ```
+			 vijay_bale@cloudshell:~ (us-ashburn-1)$  curl  -i -k -H"Authorization: Bearer AgkfCYvqSBdGKLnLFksLtA"  'https://gxkzxwrxbhfdowb-oauthords.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/rest-fullstack/rc1/49/2500000/7'
 
-4. Continuously tailing the log of one of the pods
+				HTTP/1.1 200 OK
+				Date: Thu, 24 Nov 2022 00:06:56 GMT
+				Content-Type: application/json
+				Transfer-Encoding: chunked
+				Connection: keep-alive
+				ETag: "ailFRZTmWNh4VgnQNt8/hXxK47bl5THxmPQmDacNHHA50rNlvLGVrhmdBE7GC0orkQwfkv/GijVF2AVZszsvIw=="
 
-  $ kubectl logs -f <pod name>
-  Example kubectl logs -f todo-deployment-657895dd59-qd89j
-
-5. For debugging deployment issues, you can run describe command and look at the errors at the end.
-
-    kubectl describe pod <pod name>
-    Example kubectl describe pod todo-deployment-657895dd59-qd89j
-
-6. Now that your application has a external ipaddress, you can now access it both through curl and any web browser.
-    ```
-    curl -X GET http://<external_ipaddress>:8080/todolist
-    or
-    open a browser to the link http://<external_ipaddress:8080/todolist.
-    ```
-    ![](./images/Application.png " ")
-
-    In this app,  Flask app provides end points and data from ADB. The GUI is rendered using https://github.com/Semantic-Org/Semantic-UI in a html templates.
-
-## Task 6: Configure the API Gateway (optional steps)
-
-A common requirement is to build an API endpoints for docker applications with the HTTP/HTTPS URL of a back-end service.
-This can be done using Oracle API Gateway service.
-
-The API Gateway protects any RESTful service running on Container Engine for Kubernetes, Compute, or other endpoints through policy enforcement, metrics and logging.
-Rather than exposing the Todo App directly, we will use the API Gateway to define cross-origin resource sharing (CORS).
-
-1. From the hamburger  menu navigate **Developer Services** > **API Management > Create Gateway**
-   ![](images/API-Gateway-menu.png " ")
-
-2. Configure the basic info: name, compartment, VCN and Subnet
-    - VCN: pick on of the vitual circuit network
-    - Subnet pick the public subnet (svclbsubnet)
-
-	The click "Create".
-  	![](images/Basic-gateway.png " ")
-
-3. Click on Todolist gateway
-    ![](images/Gateway.png " ")
-
-4. Click on Deployments
-   ![](images/Deployment-menu.png " ")
-
-5. Create a todolist deployment
-   ![](images/basicInformationdeploment.png " ")
-
-6. Configure the routes: we will define two routes:
-    - /tododo for the first two APIs: GET, POST and OPTIONS
-    ![](images/Route-1.png " ")
-
-    - add  /todolist/delete route API: (GET, PUT and DELETE)
-	   ![](images/Route-2.png " ")
-
-     - add  /todolist/add route APIs.
- 	   ![](images/Route-3.png " ")
-
-     - add  /todolist/update route API.
-      ![](images/Route-4.png " ")
-
-
-
-
-## Task 7: Testing the backend application through the API Gateway
-
-1. Navigate to the newly create Gateway Deployment Detail an copy the endpoint
-   ![](images/Gateway-endpoint.png " ")
-
-2. Testing through the API Gateway endpoint
-  postfix the gateway endpoint with "/todolist/todos" as shown in the image below
-
-
-  It should display the Todo Item(s) in the TodoItem table. At least the row you have created in Lab 1.
-
-   ![](images/withGateway.png " ")
-
-That is it. You have now exposed the applications endpoints through Oracle API Gateway.
+				{"items":[{"age":50,"balance":2675000},{"age":51,"balance":2862250},{"age":52,"balance":3062608},{"age":53,"balance":3276991},{"age":54,"balance":3506380},{"age":55,"balance":3751827},{"age":56,"balance":4014455},{"age":57,"balance":4295467},{"age":58,"balance":4596150},{"age":59,"balance":4917881},{"age":60,"balance":5262133},{"age":61,"balance":5630482},{"age":62,"balance":6024616},{"age":63,"balance":6446339},{"age":64,"balance":6897583},{"age":65,"balance":7380414},{"age":66,"balance":7897043},{"age":67,"balance":8449836}],"hasMore":false,"limit":1000,"offset":0,"count":18,"links":[{"rel":"self","href":"https://gxkzxwrxbhfdowb-oauthords.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/rest-fullstack/rc1/49/2500000/7"},{"rel":"describedby","href":"https://gxkzxwrxbhfdowb-oauthords.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/metadata-catalog/rest-fullstack/rc1/49/2500000/item"},{"rel":"first","href":"https://gxkzxwrxbhfdowb-oauthords.adb.us-ashburn-1.oraclecloudapps.com/ords/admin/rest-fullstack/rc1/49/2500000/7"}]}vijay_bale@cloudshell:~ (us-ashburn-1)$
+			```
+ We have now successfully verified that the ORDS works with Oauth. Now in the next lab, we can demonstrate how we can get the same token from within a python application.
 
 ## Acknowledgements
 
